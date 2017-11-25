@@ -2,43 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Personagem : MonoBehaviour
-{
-    public float velocidade;
+public class Personagem : MonoBehaviour {
+	Animator Animador;
+	Rigidbody2D rb2D;
+	// Use this for initialization
+	void Start () {
+ 		Animador.SetBool ("SeMove", true);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+			Animador.SetBool ("SeMove", false);
+		}
+	}
 
-    void Start()
-    {
+	public void Movimento(object Move){
+		Input.GetAxis("Horizontal"), Input.GetAxis("Horizontal")*10;
+	} 
+	void Move (int direcao, float velocidade){
+		if (direcao > 0)
+			transform.rotation.eulerAngles.y = 0;
+		else
+			transform.rotation.eulerAngles.y = 180;
 
-    }
-
-    void Update()
-    {
-        Movimentacao();
-    }
-
-    void Movimentacao()
-    {
-        if (Input.GetAxisRaw("Horizontal") > 0)
-        {
-            transform.Translate(Vector2.right * velocidade * Time.deltaTime);
-            transform.eulerAngles = new Vector2(0, 0);
-        }
-        if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            transform.Translate(Vector2.right * velocidade * Time.deltaTime);
-            transform.eulerAngles = new Vector2(0, 180);
-        }
-
-        if (Input.GetAxisRaw("Vertical") > 0)
-        {
-            transform.Translate(Vector2.up * velocidade * Time.deltaTime);
-            transform.eulerAngles = new Vector2(0, 0);
-        }
-
-        if (Input.GetAxisRaw("Vertical") < 0)
-        {
-            transform.Translate(Vector2.down * velocidade * Time.deltaTime);
-            transform.eulerAngles = new Vector2(0, 180);
-        }
-    }
+		rb2D.velocity.x = velocidade;
+	}
 }
